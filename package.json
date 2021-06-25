@@ -1,0 +1,23 @@
+{
+  "name": "nhsta-searchtool",
+  "version": "1.0.0",
+  "description": "> A RESTful API that retrieves vehicle information from NHTSA, presents it to the user, handles search functionality through a searchbar.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/godrowr/nhsta-searchtool.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/godrowr/nhsta-searchtool/issues"
+  },
+  "homepage": "https://github.com/godrowr/nhsta-searchtool#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
