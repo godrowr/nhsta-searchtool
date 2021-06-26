@@ -1,6 +1,15 @@
 const express = require('express');
+const path = require('path');
+const http = require('http');
 const app = express();
 const port = process.env.PORT || 3000;
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+//app.use(express.favicon());
+//app.use(express.logger('dev'));
+//app.use(express.bodyParser());
+//app.use(express.methodOverride());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 //https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json
@@ -12,9 +21,7 @@ const vehicles = [
     {id: 4, name: 'Sedan'}
 ]
 
-app.get(`/`, (req, res) => {
-    res.send(`Hello World`);
-});
+app.get('/', function(req, res) {res.render('index')});
 
 app.get(`/api/vehicles/GetAllMakes`, (req, res) => {
     res.send(vehicles);

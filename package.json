@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/godrowr/nhsta-searchtool#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jade": "^0.29.0",
+    "pug": "^3.0.2"
   }
 }
