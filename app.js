@@ -3,41 +3,44 @@ const path = require('path');
 const http = require('http');
 const app = express();
 const port = process.env.PORT || 3000;
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-//app.use(express.favicon());
-//app.use(express.logger('dev'));
-//app.use(express.bodyParser());
+
+app.set('port', port);
+app.use(express.json());
+//app.use(express.urlencoded());
 //app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
 
-//https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json
-
-const vehicles = [
-    {id: 1, name: 'Car'},
-    {id: 2, name: 'Van'},
-    {id: 3, name: 'Truck'},
-    {id: 4, name: 'Sedan'}
-]
-
-app.get('/', function(req, res) {res.render('index')});
-
-app.get(`/api/vehicles/GetAllMakes`, (req, res) => {
-    res.send(vehicles);
-});
-
-app.post('/api/vehicles/', (req, res) => {
-    const vehicle = {
-        id: vehicles.length + 1,
-        name: req.body.name
+app.get('/', function(req, res) {
+    res.render('index');
+    let vehicle = req.query.vehicle;
+    let manufacturer = req.query.manufacturer;
+    let manufacturers = req.query.manufacturers;
+    if (vehicle){
+        console.log(vehicle);
+    } else if (manufacturers) {
+        console.log(manufacturers);
+    } else if (manufacturer){
+        console.log(manufacturer);
     }
 });
 
-app.get(`/api/vehicles/GetModelsForMakeId/:id`, (req, res) => {
+
+//https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json
+
+app.get('/api/vehicles/:id', (req, res) => {
     let vehicle = vehicles.find(c => c.id === parseInt(req.params.id));
     if (!vehicle) res.status(404).send('Vehicle with the givin VIN does not exist');
     res.send(vehicle);
+});
+
+app.get('/api/makes/:manufacturer', (req, res) => {
+
+});
+
+app.get('/api/manufacturers/all', (req, res) => {
+
 });
 
 app.listen(port, () => console.log(`Listening on port ${port} ..`))
