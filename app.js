@@ -28,18 +28,22 @@ app.get('/', function(req, res) {
                 let make = data.Results[6].Value;
                 let model = data.Results[8].Value;
                 let year = data.Results[9].Value;
-                console.log(make + model + year);
+                console.log(make + " " + model + " " + year);
             } else {
                 console.log("Error - Bad VIN")
             }
         }); 
     } else if (manufacturer){
         console.log(manufacturer);
-        let url =  "https://vpic.nhtsa.dot.gov/api/vehicles/GetMakeForManufacturer/"+manufacturer+"?format=json"
+        let url =  "https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/"+manufacturer+"?format=json"
         request(url, function(err, resp, body) {
             data = JSON.parse(resp.body);
+            let ids = []
             if (data.Results.length != 0){
-                console.log("works!");
+                for (let i = 0; i < data.Results.length; i++) {
+                    ids.push(data.Results[i].Model_Name); 
+                } 
+                console.log(ids);
             } else {
                 console.log("Error - Bad VIN")
             }
