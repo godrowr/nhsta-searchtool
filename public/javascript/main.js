@@ -1,16 +1,13 @@
 
-$( document ).ready(function() {
-	
-	// GET REQUEST
+$(function() {
 	$("#btn").click(function(event){
 		event.preventDefault();
-		ajaxGet();
+		console.log("hey!")
 	});
 	
-	// DO GET
 	function ajaxGet(){
         $.ajax({
-            url: "https://vpic.nhtsa.dot.gov/api/vehicles/getallmanufacturers?format=json&page=2",
+            url: "",
             type: "GET",
             dataType: "json",
             success: function(result)

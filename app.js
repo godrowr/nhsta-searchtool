@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
+const request = require('request');
+const { strict } = require('assert');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -14,18 +16,45 @@ app.set('views', __dirname + '/views');
 
 app.get('/', function(req, res) {
     res.render('index');
-    let vehicle = req.query.vehicle;
+    let VIN = req.query.vehicle;
     let manufacturer = req.query.manufacturer;
     let manufacturers = req.query.manufacturers;
-    if (vehicle){
-        console.log(vehicle);
-    } else if (manufacturers) {
-        console.log(manufacturers);
+    if (VIN){
+        console.log(VIN);
+        url = "https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/"+VIN+"?format=json"
+        request(url, function(err, resp, body) {
+            data = JSON.parse(resp.body);
+            if (data.Results[1].Value == 0){
+                let make = data.Results[6].Value;
+                let model = data.Results[8].Value;
+                let year = data.Results[9].Value;
+                console.log(make + model + year);
+            } else {
+                console.log("Error - Bad VIN")
+            }
+        }); 
     } else if (manufacturer){
         console.log(manufacturer);
-    }
+        let url =  "https://vpic.nhtsa.dot.gov/api/vehicles/GetMakeForManufacturer/"+manufacturer+"?format=json"
+        request(url, function(err, resp, body) {
+            data = JSON.parse(resp.body);
+            if (data.Results.length != 0){
+                console.log("works!");
+            } else {
+                console.log("Error - Bad VIN")
+            }
+        });
+    } else if (manufacturers) {
+        let url =  "https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json"
+        request(url, function(err, resp, body) {
+            data = JSON.parse(resp.body);
+            for (let i = 0; i < data.Results.length; i++) {
+                console.log(data.Results[i].Make_Name); 
+            } 
+        });
+        
+    } 
 });
-
 
 //https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json
 
