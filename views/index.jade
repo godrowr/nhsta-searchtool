@@ -2,33 +2,28 @@ doctype html
 html
    head
       title= 'NHSTA SearchTool'
-      link(rel='stylesheet', href='/stylesheets/style.css')
       script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js")
-      script(src="/public/javascript/main.js")
    body
       block content
          h2 NHSTA-SearchTool 
          h4 Retrieves vehicle information from NHTSA
-         form(name="get-vin", method='get')
+         form(action='/api/vehicle/', method='GET')
             h5 Get the year, make, and model of a vehicle given its VIN 
             div.input
-               span.label Vehicle Information Number 
+               span.label Vehicle Information Number: 
                input#input(type="text",name="vehicle",placeholder="VIN #")
                input#btn(type="submit", value="Submit")
          
-         form(name="get-makes",method='get')
+         form(action='/api/makes/',method='GET')
             h5 Get a list of all makes given a manufacturer
             div.input
-               span.label Manufacturer
+               span.label Manufacturer: 
                input#input2(type="text",name="manufacturer",placeholder="Manufacturer")
                input#btn2(type="submit", value="Submit")
          
-         form(name="get-makes",method='get')
+         form(action='/api/manufacturers/',method='GET')
             h5 Get a list of all manufacturers
             div.input
                input#btn3(type="submit", name="manufacturers", value="All Manufacturers")
-         
-         div.container
-            h3#title Results
-                  p#response
+
      
