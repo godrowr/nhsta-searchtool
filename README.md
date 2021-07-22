@@ -1,8 +1,17 @@
 # nhsta-searchtool
-> A RESTful API that retrieves vehicle information from NHTSA, presents it to the user, handles search functionality through a searchbar.  
 
+> A RESTful API that retrieves vehicle information from NHTSA, presents it to the user, handles search functionality through a searchbar.
+
+## Instructions
+
+```
+node app.js
+```
+
+Then go to http://localhost:3000/ to access site.
 
 ## Requirements
+
 - Get a list of all manufacturers (e.g. Toyota, Honda, etc.)
 - Get a list of all makes given a manufacturer (e.g. for Toyota: Corolla, Prius, etc.)
 - Get the year, make, and model of a vehicle given its VIN (e.g. for 3N1AB6AP7BL729215: 2011 Nissan Sentra)
@@ -10,4 +19,3 @@
 - Use a well-established framework such as Express to implement your solution.
 - Have well-documented code.
 - Write unit tests to ensure the integrity of the code.
-
